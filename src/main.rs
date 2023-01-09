@@ -73,7 +73,7 @@ extern crate insta;
 #[cfg(test)]
 mod tests {
     use super::*;
-    use insta::{assert_json_snapshot, assert_compact_json_snapshot};
+    use insta::{assert_json_snapshot, assert_compact_json_snapshot, assert_csv_snapshot};
 
     #[test]
     fn test_json_task_struct() {
@@ -162,5 +162,35 @@ mod tests {
   }
 ]"###);
         assert_compact_json_snapshot!(tasks, @r###"[{"name": "name", "is_completed": true}]"###);
+    }
+
+    #[test]
+    fn test_csv_task_struct() {
+        let task: Task = Task {
+            name: "name".to_string(),
+            is_completed: false,
+        };
+        assert_csv_snapshot!(task, @r###"name,is_completed
+name,false"###);
+    }
+
+    #[test]
+    fn test_csv_task_empty_struct_vec() {
+        let tasks: Vec<Task> = vec![];
+        assert_csv_snapshot!(tasks, @r###""###);
+    }
+
+    #[test]
+    fn test_csv_task_struct_vec() {
+        let tasks: Vec<Task> = vec![Task {
+            name: "name".to_string(),
+            is_completed: false,
+        },Task {
+            name: "name2".to_string(),
+            is_completed: false,
+        }];
+        assert_csv_snapshot!(tasks, @r###"name,is_completed
+name,false
+name2,false"###);
     }
 }

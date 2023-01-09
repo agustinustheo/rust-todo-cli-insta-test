@@ -10,5 +10,5 @@ json = ["serde"]
 serde = { version = "1.0.117", optional = true }
 
 [dev-dependencies]
-insta = { version = "1.26.0", features = ["json"] }
+insta = { version = "1.26.0", features = ["json", "csv"] }
 serde = { version = "1.0.117", features = ["derive"] }

@@ -3,4 +3,12 @@ name = "todo"
 version = "0.1.0"
 authors = ["Theo <agustinustheoo@gmail.com>"]
 
+[features]
+json = ["serde"]
+
+[dependencies]
+serde = { version = "1.0.117", optional = true }
+
 [dev-dependencies]
+insta = { version = "1.26.0", features = ["json"] }
+serde = { version = "1.0.117", features = ["derive"] }

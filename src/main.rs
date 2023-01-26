@@ -1,6 +1,17 @@
 use std::io::{self, BufRead};
 
+// Making to structs like this isn't
+// best practice for production
+// it's here only to simplify things
+#[cfg(test)]
 #[derive(serde::Serialize, Clone)]
+struct Task {
+    pub name: String,
+    pub is_completed: bool,
+}
+
+#[cfg(not(test))]
+#[derive(Clone)]
 struct Task {
     pub name: String,
     pub is_completed: bool,
@@ -68,6 +79,7 @@ fn complete_task(tasks: &mut Vec<Task>, level: i32) -> io::Result<Task> {
     Ok(tasks[level as usize].clone())
 }
 
+#[cfg(test)]
 extern crate insta;
 
 #[cfg(test)]
